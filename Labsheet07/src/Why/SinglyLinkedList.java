@@ -1,0 +1,111 @@
+package Why;
+
+
+class Node {
+	public int  data;
+	public Node next;
+	
+	public Node(int value) {
+		this.data = value;
+		this.next = null;
+	}
+}
+
+public class SinglyLinkedList {
+	private Node head;
+	private Node tail;
+	
+	public SinglyLinkedList() {
+		head = null;
+		tail = null;
+	}
+	
+	public String displayList() {
+		boolean first = true;
+		String  display = "[";
+		for (Node current = head; current != null; current = current.next) {
+			display += (!first ? ", " : "") + current.data;
+			first = false;
+		}
+		display += "]";
+		return display;
+	}
+	
+	public void clear() {
+		head = null;
+		tail = null;
+	}
+	
+	public boolean isEmpty() {
+        
+		return head == null;
+	}
+	
+	public void append(int value) {
+		Node new_node = new Node(value);
+		if (head == null) {
+			head = new_node;
+			tail = head;
+		} else {
+			tail.next = new_node;
+			tail = tail.next;
+		}
+	}
+	
+	public Object get(int position) {
+		Node current_node = head;
+		int current_position = 0;
+		while (current_node != null) {
+			if (current_position == position) {
+				return current_node.data;
+			}
+			current_node = current_node.next;
+			current_position++;
+		}
+		return null;
+		
+	}
+	
+	public void set(int position, int value) {
+		Node new_node = new Node(value);
+		Node current_node = head;
+		int current_position = 0;
+		while (current_node != null && current_position <= position) {
+			current_node = current_node.next;
+			current_position++;
+			if(current_position == position) {
+				current_node.data = new_node.data;
+				System.out.println("Updated data success!!");
+				return;
+			}
+		}
+		System.out.println("Updated data fail…");
+		
+	}
+	
+	public boolean contains(int value) {
+		Node current_node = head;
+		boolean found = false;
+		while (current_node != null) {
+			if (current_node.data == value) {
+				found = true;
+				break;
+			}
+			current_node = current_node.next;
+		}
+
+		return found;
+	}
+	
+	public void addAll(SinglyLinkedList otherlist) {
+		if (isEmpty()&&!otherlist.isEmpty()) {
+			head = otherlist.head;
+			tail = otherlist.tail;
+		}
+		else if (!isEmpty()&&!otherlist.isEmpty()) {
+			tail.next = otherlist.head;
+			tail = otherlist.tail;
+		}
+	}
+	
+}
